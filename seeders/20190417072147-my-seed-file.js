@@ -41,17 +41,7 @@ module.exports = {
       })
       ), {});
     
-    queryInterface.bulkInsert('Comments', 
-      Array.from({length: 10}).map((item, index) => index).map(data =>
-      ({
-        text: faker.lorem.sentence(),
-        UserId: Math.floor(Math.random() * 3)+1,
-        RestaurantId: Math.floor(Math.random() * 10)+1,
-        createdAt: new Date(), updatedAt: new Date()
-      })
-    ), {});
-
-    return queryInterface.bulkInsert('Restaurants', 
+    queryInterface.bulkInsert('Restaurants', 
       Array.from({length: 50}).map((item, index) =>
       ({
         id: index + 1,
@@ -66,6 +56,17 @@ module.exports = {
         CategoryId: Math.floor(Math.random() * 5) + 1
       })
     ), {});
+
+    return queryInterface.bulkInsert('Comments', 
+      Array.from({length: 10}).map((item, index) => index).map(data =>
+      ({
+        text: faker.lorem.sentence(),
+        UserId: Math.floor(Math.random() * 3)+1,
+        RestaurantId: Math.floor(Math.random() * 10)+1,
+        createdAt: new Date(), updatedAt: new Date()
+      })
+    ), {});
+    
   },
 
   down: (queryInterface, Sequelize) => {
