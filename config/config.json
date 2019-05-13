@@ -1,24 +1,23 @@
 {
   "development": {
     "username": "root",
-    "password": "password",
+    "password": "root",
     "database": "forum",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "password": "root",
+    "database": "forum",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "production": {
-    "use_env_variable": "DATABASE_URL",
-    "dialect": "postgres",
-    "protocol": "postgres",
-    "dialectOptions": {
-        "ssl": true
-    }
+    "username": "root",
+    "password": "root",
+    "database": "forum",
+    "host": "localhost",
+    "dialect": "mysql"
   }
 }

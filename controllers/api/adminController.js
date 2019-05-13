@@ -1,5 +1,5 @@
 const fs = require('fs')
-const db = require('../models') 
+const db = require('../../models') 
 const Restaurant = db.Restaurant
 const User = db.User
 const Category = db.Category
@@ -11,25 +11,16 @@ let adminController = {
     return Restaurant.findAll({
       include: [Category]
     }).then(restaurants => {
-      return res.render('admin/restaurants', {
+      return res.json({
         restaurants: restaurants
       })
     })
     
   },
 
-  createRestaurant: (req, res) => {
-    Category.findAll().then(categories => {
-      return res.render('admin/create', {
-        categories: categories
-      })
-    })
-  },
-
   postRestaurant: (req, res) => {
     if(!req.body.name){
-      req.flash('error_messages', "name didn't exist")
-      return res.redirect('back')
+      return res.json({ status: 'error', message: "name didn't exist"})
     }
   
     const { file } = req
@@ -45,8 +36,7 @@ let adminController = {
           image: file ? img.data.link : null,
           CategoryId: req.body.categoryId
         }).then((restaurant) => {
-          req.flash('success_messages', 'restaurant was successfully created')
-          return res.redirect('/admin/restaurants')
+          return res.json({ status: 'success', message: 'restaurant was successfully created'})
         })
       })
     }
@@ -60,35 +50,20 @@ let adminController = {
         image: null,
         CategoryId: req.body.categoryId
       }).then((restaurant) => {
-        req.flash('success_messages', 'restaurant was successfully created')
-        return res.redirect('/admin/restaurants')
+        return res.json({ status: 'success', message: 'restaurant was successfully created'})
       })
      }
   },
 
   getRestaurant: (req, res) => {
     return Restaurant.findByPk(req.params.id, {include: [Category]}).then(restaurant => {
-      return res.render('admin/restaurant', {
-        restaurant: restaurant
-      })
-    })
-  },
-
-  editRestaurant: (req, res) => {
-    return Restaurant.findByPk(req.params.id).then(restaurant => {
-      Category.findAll().then(categories => {
-        return res.render('admin/create', {
-          categories: categories,
-          restaurant: restaurant
-        })
-      })
+      return res.json({ restaurant: restaurant })
     })
   },
 
   putRestaurant: (req, res) => {
     if(!req.body.name){
-      req.flash('error_messages', "name didn't exist")
-      return res.redirect('back')
+      return res.json({ status: 'error', message: "name didn't exist"})
     }
   
     const { file } = req
@@ -107,8 +82,7 @@ let adminController = {
               CategoryId: req.body.categoryId
             })
             .then((restaurant) => {
-              req.flash('success_messages', 'restaurant was successfully to update')
-              res.redirect('/admin/restaurants')
+              res.json({ status: 'success', message: 'restaurant was successfully to update'})
             })
           })
       })
@@ -126,8 +100,7 @@ let adminController = {
             CategoryId: req.body.categoryId
           })
           .then((restaurant) => {
-            req.flash('success_messages', 'restaurant was successfully to update')
-            res.redirect('/admin/restaurants')
+            res.json({ status: 'success', message: 'restaurant was successfully to update'})
           })
         })
   },
@@ -137,14 +110,14 @@ let adminController = {
       .then((restaurant) => {
         restaurant.destroy()
           .then((restaurant) => {
-            res.redirect('/admin/restaurants')
+            res.json({ status: 'success', message: ''})
           })
       })
   },
 
   getUsers: (req, res) => {
     return User.findAll().then(users => {
-      return res.render('admin/users', {
+      return res.json({
         users: users
       })
     })
@@ -157,8 +130,7 @@ let adminController = {
             isAdmin: req.body.isAdmin === 'true'
           })
           .then((restaurant) => {
-            req.flash('success_messages', 'user was successfully to update')
-            res.redirect('/admin/users')
+            res.json({ status: 'success', message: 'user was successfully to update'})
           })
         })
   }

@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const flash = require('connect-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
+
 const passport = require('./config/passport')
 
 const app = express()
@@ -19,6 +20,8 @@ app.engine('handlebars', handlebars({
 }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({extended: true}))
+// JWT
+app.use(bodyParser.json());
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(passport.initialize())
 app.use(passport.session())
@@ -38,4 +41,4 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-require('./routes')(app, passport)
+require('./routes')(app)
