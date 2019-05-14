@@ -41,4 +41,12 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
+const swaggerUi = require('swagger-ui-express'),
+    swaggerDocument = require('./config/swagger.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// const expressOasGenerator = require('express-oas-generator');
+// expressOasGenerator.init(app, {});
+
 require('./routes')(app)
