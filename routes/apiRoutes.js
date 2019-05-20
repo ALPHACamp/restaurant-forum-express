@@ -44,6 +44,7 @@ router.get('/restaurants/:id/dashboard', passport.authenticate('jwt', {session: 
 router.get('/restaurants/:id', passport.authenticate('jwt', {session: false}), authenticated, restController.getRestaurant)
 
 router.get('/users/top', passport.authenticate('jwt', {session: false}), authenticated, userController.getTopUser)
+router.get('/users', passport.authenticate('jwt', {session: false}), authenticated, userController.getUser)
 router.get('/users/:id', passport.authenticate('jwt', {session: false}), authenticated, userController.getUser)
 // form-data {
 //   image: ...
@@ -66,12 +67,17 @@ router.post('/admin/restaurants', passport.authenticate('jwt', {session: false})
 router.put('/admin/restaurants/:id', passport.authenticate('jwt', {session: false}), authenticatedAdmin, upload.single('image'), adminController.putRestaurant)
 router.delete('/admin/restaurants/:id', passport.authenticate('jwt', {session: false}), authenticatedAdmin, adminController.deleteRestaurant)
 
+router.get('/admin/users', passport.authenticate('jwt', {session: false}), authenticatedAdmin, adminController.getUsers)
+router.put('/admin/users/:id', passport.authenticate('jwt', {session: false}), authenticatedAdmin, adminController.putUsers)
+
 router.get('/admin/categories', passport.authenticate('jwt', {session: false}), authenticatedAdmin, categoryController.getCategories)
 router.get('/admin/categories/:id', passport.authenticate('jwt', {session: false}), authenticatedAdmin, categoryController.getCategories)
 router.post('/admin/categories', passport.authenticate('jwt', {session: false}), authenticatedAdmin, categoryController.postCategory)
 router.put('/admin/categories/:id', passport.authenticate('jwt', {session: false}), authenticatedAdmin, categoryController.putCategory)
 router.delete('/admin/categories/:id', passport.authenticate('jwt', {session: false}), authenticatedAdmin, categoryController.deleteCategory)
 
+
+router.post('/signin', userController.signIn)
 // {
 //     "email": "API_TEST",
 //     "password": "API_TEST",
@@ -80,8 +86,15 @@ router.delete('/admin/categories/:id', passport.authenticate('jwt', {session: fa
 //     "status": "success",
 //     "message": "ok",
 //     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTU3NzM0MTQ5fQ.rFA7lrhX8NrjDgFKkKF14G9bstjSJiyP_m2g833xnBU"
+//     "user": {
+//        "id": 1,
+//        "name": "root",
+//        "email": "root@example.com",
+//        "isAdmin": true,
+//      }
 // }
-router.post('/signin', userController.signIn)
+
+router.post('/signup', userController.signUp)
 // {
 //     "name": "API_TEST",
 //     "email": "API_TEST",
@@ -92,7 +105,6 @@ router.post('/signin', userController.signIn)
 //     "status": "success",
 //     "message": "成功註冊帳號！"
 // }
-router.post('/signup', userController.signUp)
 
 module.exports = router;
 

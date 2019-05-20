@@ -51,11 +51,15 @@ let userController = {
       }
       var payload = {id: user.id};
       var token = jwt.sign(payload, jwtOptions.secretOrKey);
-      return res.json({status: 'success', message: "ok", token: token});
+      return res.json({status: 'success', message: "ok", token: token, user: {
+          id: user.id, name: user.name, email: user.email, isAdmin: user.isAdmin
+        }
+      });
     })
   },
  
   getUser: (req, res) => {
+    if(!req.params.id) req.params.id = req.user.id
     return User.findByPk(req.params.id, {
       include: [
         { model: Restaurant, as: 'FavoritedRestaurants' },
