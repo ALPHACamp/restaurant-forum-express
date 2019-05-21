@@ -60,6 +60,9 @@ router.delete('/following/:userId', passport.authenticate('jwt', {session: false
 router.post('/favorite/:restaurantId', passport.authenticate('jwt', {session: false}), authenticated, userController.addFavorite)
 router.delete('/favorite/:restaurantId', passport.authenticate('jwt', {session: false}), authenticated, userController.removeFavorite)
 
+router.post('/like/:restaurantId', passport.authenticate('jwt', {session: false}), authenticated, userController.addLike)
+router.delete('/like/:restaurantId', passport.authenticate('jwt', {session: false}), authenticated, userController.removeLike)
+
 router.get('/admin', passport.authenticate('jwt', {session: false}), authenticatedAdmin, (req, res) => res.json({message: 'hello world', user: req.user}))
 router.get('/admin/restaurants', passport.authenticate('jwt', {session: false}), authenticatedAdmin, adminController.getRestaurants)
 router.get('/admin/restaurants/:id', passport.authenticate('jwt', {session: false}), authenticatedAdmin, adminController.getRestaurant)
