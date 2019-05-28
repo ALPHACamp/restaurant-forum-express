@@ -12,7 +12,7 @@
     <a class="nav-link" href="/users/top">美食達人</a>
   </li>
 </ul>
-<br/>
+<br />
 
 <ul class="nav nav-pills">
   <li class="nav-item">
@@ -20,11 +20,12 @@
   </li>
   {{#each categories}}
   <li class="nav-item">
-    <a class="nav-link {{#ifCond this.id ../categoryId}}active{{/ifCond}}" href="?categoryId={{this.id}}">{{this.name}}</a>
+    <a class="nav-link {{#ifCond this.id ../categoryId}}active{{/ifCond}}"
+      href="?categoryId={{this.id}}">{{this.name}}</a>
   </li>
   {{/each}}
 </ul>
-<br/>
+<br />
 
 <div class="row">
   {{#each restaurants}}
@@ -34,8 +35,8 @@
       <div class="card-body">
         <p class="card-text">
           <a href="/restaurants/{{this.id}}">
-     {{this.name}}
-    </a>
+            {{this.name}}
+          </a>
         </p>
         <span class="badge badge-secondary">{{this.Category.name}}</span>
         <p class="card-text">{{this.description}}</p>
@@ -49,7 +50,7 @@
           <button type="submit" class="btn btn-primary">加到最愛</button>
         </form>
         {{/if}}
-        <br/> {{#if this.isLiked }}
+        <br /> {{#if this.isLiked }}
         <form action="/like/{{this.id}}?_method=DELETE" method="POST">
           <button type="submit" class="btn btn-danger">Unlike</button>
         </form>
@@ -63,8 +64,8 @@
   </div>
   {{/each}}
 </div>
-<br/>
-<br/>
+<br />
+<br />
 
 <nav aria-label="Page navigation example">
   <ul class="pagination">
@@ -76,7 +77,8 @@
     {{#each totalPage}} {{#ifCond this ../page}}
     <li class="page-item active"><a class="page-link" href="#">{{this}}</a></li>
     {{else}}
-    <li class="page-item"><a class="page-link" href="/restaurants?page={{this}}&categoryId={{../categoryId}}">{{this}}</a></li>
+    <li class="page-item"><a class="page-link"
+        href="/restaurants?page={{this}}&categoryId={{../categoryId}}">{{this}}</a></li>
     {{/ifCond}} {{/each}}
     <li>
       <a class="page-link" href="/restaurants?page={{next}}&categoryId={{categoryId}}" aria-label="Next">
