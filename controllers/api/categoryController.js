@@ -23,7 +23,7 @@ let categoryController = {
       name: req.body.name
     })
     .then((category) => {
-      res.json({ status: 'success', message: ''})
+      res.json({ status: 'success', message: '', category: category })
     })
   }
  },
