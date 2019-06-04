@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const cors = require('cors');
 
 const adminController = require('../controllers/api/adminController.js')
 const restController = require('../controllers/api/restController.js')
@@ -35,6 +36,8 @@ const authenticatedAdmin = (req, res, next) => {
 // {
 //   Authorization: Bearer Token
 // }
+// TODO set cors options
+router.use(cors())
 router.get('/', passport.authenticate('jwt', {session: false}), authenticated, (req, res) => res.json({message: 'hello world', user: req.user}))
 
 router.get('/restaurants', passport.authenticate('jwt', {session: false}), authenticated, restController.getRestaurants)
@@ -110,4 +113,3 @@ router.post('/signup', userController.signUp)
 // }
 
 module.exports = router;
-
